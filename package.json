@@ -1,0 +1,30 @@
+{
+  "name": "@svnrnns/fallon",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Enhanced storage package for Vue 3",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/fallon.umd.js",
+  "module": "./dist/fallon.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/fallon.es.js",
+      "require": "./dist/fallon.umd.js"
+    }
+  },
+  "scripts": {
+    "co": "sui-mono commit",
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@s-ui/mono": "2",
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "vite": "^5.0.8"
+  }
+}
