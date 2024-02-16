@@ -41,7 +41,7 @@ class Fallon {
   /**
    * Retrieves the value linked to the given key from the local storage.
    * @param {*} key - The key to look for.
-   * @param {boolean} reactive - Indicates wheter the function is going to act vue-reactive or not.
+   * @param {boolean} reactive - Indicates whether the function is going to act vue-reactive or not.
    * @throws {FallonStorageError} Throws an error if the key does not exist in the storage.
    * @returns The value. Can be a ref( ) object if reactivity is enabled. If the value is a dictionary-like object, it will be deserialized.
    */
@@ -85,7 +85,7 @@ class Fallon {
   }
 
   /**
-   * Binds a reactive object to the local storage, so whenever the object updates, the storage does as well.
+   * Links a reactive object to a local storage key, so whenever the object updates, the storage value does as well.
    * @param {*} key - The key.
    * @param {*} reactiveObject - A Vue reactive object (ref/computed)
    * @throws {FallonStorageError} Throws an error if the key is not provided.
