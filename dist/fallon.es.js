@@ -1,13 +1,13 @@
-var f = (t, e, r) => {
+var h = (t, e, r) => {
   if (!e.has(t))
     throw TypeError("Cannot " + r);
 };
-var s = (t, e, r) => (f(t, e, "read from private field"), r ? r.call(t) : e.get(t)), h = (t, e, r) => {
+var s = (t, e, r) => (h(t, e, "read from private field"), r ? r.call(t) : e.get(t)), g = (t, e, r) => {
   if (e.has(t))
     throw TypeError("Cannot add the same private member more than once");
   e instanceof WeakSet ? e.add(t) : e.set(t, r);
-}, g = (t, e, r, o) => (f(t, e, "write to private field"), o ? o.call(t, r) : e.set(t, r), r);
-import { ref as d, watch as m } from "vue";
+}, p = (t, e, r, n) => (h(t, e, "write to private field"), n ? n.call(t, r) : e.set(t, r), r);
+import { ref as m, watch as y } from "vue";
 class i extends Error {
   constructor(e) {
     super(e), this.name = "FallonClassError";
@@ -18,7 +18,7 @@ class c extends Error {
     super(e), this.name = "FallonStorageError";
   }
 }
-function p(t) {
+function d(t) {
   return t !== null && typeof t == "object" && !Array.isArray(t);
 }
 function S(t) {
@@ -32,10 +32,10 @@ function S(t) {
 function u(t) {
   return S(t) ? JSON.parse(t) : t;
 }
-var a;
-class N {
+var o;
+class v {
   constructor(e) {
-    h(this, a, void 0);
+    g(this, o, void 0);
     e && this.setNamespace(e);
   }
   /**
@@ -43,7 +43,7 @@ class N {
    * @returns {string} The namespace.
    */
   getNamespace() {
-    return s(this, a);
+    return s(this, o);
   }
   /**
    * Updates the namespace for this Fallon instance.
@@ -56,7 +56,16 @@ class N {
       throw new i("Namespace variable not provided");
     if (typeof e != "string")
       throw new i("Namespace variable must be of type string");
-    g(this, a, e);
+    p(this, o, e);
+  }
+  /**
+   * Checks whether a key exists or not in the local storage.
+   * @param {*} key - The key to check if exists
+   * @returns True if exists, false if not
+   */
+  exists(e) {
+    const r = typeof s(this, o) < "u" ? s(this, o) + e : e;
+    return localStorage.getItem(r) !== null;
   }
   /**
    * Retrieves the value linked to the given key from the local storage.
@@ -66,18 +75,18 @@ class N {
    * @returns The value. Can be a ref( ) object if reactivity is enabled. If the value is a dictionary-like object, it will be deserialized.
    */
   get(e, r = !1) {
-    const o = localStorage.getItem(e);
-    if (o === null)
+    const n = typeof s(this, o) < "u" ? s(this, o) + e : e, a = localStorage.getItem(n);
+    if (a === null)
       throw new c(
-        "The key does not exists in the local storage"
+        "The key " + n + " does not exists in the local storage"
       );
     if (!r)
-      return u(o);
-    const n = d(u(o));
+      return u(a);
+    const l = m(u(a));
     return setInterval(() => {
-      const l = localStorage.getItem(e);
-      l != n.value && (n.value = u(l));
-    }, 100), n;
+      const f = localStorage.getItem(n);
+      f != l.value && (l.value = u(f));
+    }, 100), l;
   }
   /**
    * Sets a value to a key in the local storage. Serializes the data if the value is a dictionary-like object.
@@ -88,8 +97,8 @@ class N {
   set(e, r) {
     if (!e)
       throw new c("Key value not provided");
-    const o = typeof s(this, a) < "u" ? s(this, a) + e : e, n = p(r) ? JSON.stringify(r) : r;
-    localStorage.setItem(o, n);
+    const n = typeof s(this, o) < "u" ? s(this, o) + e : e, a = d(r) ? JSON.stringify(r) : r;
+    localStorage.setItem(n, a);
   }
   /**
    * Links a reactive object to a local storage key, so whenever the object updates, the storage value does as well.
@@ -105,12 +114,12 @@ class N {
       throw new i(
         "Variable must be a Vue reactive object (ref/computed)"
       );
-    const o = () => {
-      const n = typeof s(this, a) < "u" ? s(this, a) + e : e, l = p(r.value) ? JSON.stringify(r.value) : r.value;
-      localStorage.setItem(n, l);
+    const n = () => {
+      const a = typeof s(this, o) < "u" ? s(this, o) + e : e, l = d(r.value) ? JSON.stringify(r.value) : r.value;
+      localStorage.setItem(a, l);
     };
-    m(r, () => {
-      o();
+    y(r, () => {
+      n();
     });
   }
   /**
@@ -133,7 +142,7 @@ class N {
     return localStorage.length;
   }
 }
-a = new WeakMap();
+o = new WeakMap();
 export {
-  N as default
+  v as default
 };

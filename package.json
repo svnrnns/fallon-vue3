@@ -1,7 +1,7 @@
 {
   "name": "fallon-vue3",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.21",
   "description": "Enhanced storage package for Vue 3",
   "license": "MIT",
   "type": "module",
