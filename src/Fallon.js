@@ -39,6 +39,20 @@ class Fallon {
   }
 
   /**
+   * Checks whether a key exists or not in the local storage.
+   * @param {*} key - The key to check if exists
+   * @returns True if exists, false if not
+   */
+  exists(key) {
+    const nKey =
+      typeof this.#namespace != "undefined" ? this.#namespace + key : key;
+
+    const item = localStorage.getItem(nKey);
+
+    if (item === null) return false;
+    else return true;
+  }
+  /**
    * Retrieves the value linked to the given key from the local storage.
    * @param {*} key - The key to look for.
    * @param {boolean} reactive - Indicates whether the function is going to act vue-reactive or not.
@@ -46,11 +60,14 @@ class Fallon {
    * @returns The value. Can be a ref( ) object if reactivity is enabled. If the value is a dictionary-like object, it will be deserialized.
    */
   get(key, reactive = false) {
-    const item = localStorage.getItem(key);
+    const nKey =
+      typeof this.#namespace != "undefined" ? this.#namespace + key : key;
+
+    const item = localStorage.getItem(nKey);
 
     if (item === null)
       throw new FallonStorageError(
-        "The key does not exists in the local storage"
+        "The key " + nKey + " does not exists in the local storage"
       );
 
     if (!reactive) {
@@ -59,7 +76,7 @@ class Fallon {
 
     const reactiveItem = ref(parseIfJSON(item));
     setInterval(() => {
-      const checkingValue = localStorage.getItem(key);
+      const checkingValue = localStorage.getItem(nKey);
       if (checkingValue != reactiveItem.value) {
         reactiveItem.value = parseIfJSON(checkingValue);
       }
