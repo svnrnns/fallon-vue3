@@ -1,6 +1,9 @@
 # Fallon
 
-Fallon is a package that enhances the local storage experience in **Vue 3**, bringing a easy-to-use API and offering several cool features, such as automatic serialization and deserialization of objects or adding reactivity to any possible action of the package itself.
+Fallon is a package designed to enhance the local storage experience in Vue 3 applications. It offers an easy-to-use API and incorporates several exciting features, including:
+
+- Automatic serialization and deserialization of objects.
+- Adding reactivity to any action performed by the package itself.
 
 ## Table of Contents
 
@@ -19,8 +22,8 @@ Fallon is a package that enhances the local storage experience in **Vue 3**, bri
 
 ### Reactivity:
 
-- Make the local storage data reactive so that changes automatically trigger re-renders in the Vue components that use the data.
-- Reactivity is enabled in both ways, reading and writting data.
+- Enable reactivity on local storage data, ensuring that changes automatically trigger re-renders in Vue components utilizing the data.
+- Bi-directional reactivity is supported, allowing for both reading and writing data with seamless updates in Vue components.
 
 ### Serialization and Deserialization:
 
@@ -37,19 +40,22 @@ Fallon is a package that enhances the local storage experience in **Vue 3**, bri
 ## Installation
 
 ```bash
-$ npm install @svnrnns/fallon --save-dev
+$ npm install fallon-vue3 --save-dev
 ```
 
 ## Usage
 
 [Install](#installation) the Fallon package.
 
-Create an instance of Fallon that might have a namespace.
+Create an instance of Fallon, optionally specifying a namespace..
 
 ```js
-import Fallon from "@svnrnns/fallon";
+import Fallon from "fallon-vue3";
 
+// Instantiate Fallon without a namespace
 const fallon = new Fallon();
+
+// Instantiate Fallon with a namespace
 const fallonNamespace = new Fallon("app_");
 ```
 
@@ -57,7 +63,7 @@ Read data from the local storage using Fallon.
 
 ```js
 const data = fallon.get("token");
-const data = fallonNamespace.get("token"); // Reading app_token
+const data = fallonNamespace.get("token"); // Reading `app_token`
 ```
 
 ## Object serialization
@@ -77,13 +83,13 @@ const cart = fallon.get("cart"); // Deserialized as an object :)
 
 ## How Reactivity works
 
-The reactivity feature enables real-time updates of data stored in the local storage. This means that when a value in local storage changes, any Vue components that are using the reactive data will automatically update to reflect the new value without the need for manual intervention.
+The reactivity feature facilitates real-time updates of data stored in local storage. This ensures that when a value in local storage changes, any Vue components utilizing the reactive data will automatically update to reflect the new value, eliminating the need for manual intervention.
 
 ### Implementation Details
 
-The reactivity mechanism is implemented using Vue's Composition API (Vue 3). When you retrieve data using the `get( )` or `bind( )` method with the reactive parameter set to true, a reactive ref is created for the specified key in local storage. This reactive ref is bound to the value of the key in local storage and automatically updates whenever the value changes. <br />
+The reactivity mechanism is implemented using Vue's Composition API (Vue 3). When using the `get()` or `bind()` method with the reactive parameter set to true, a reactive reference is generated for the specified key in local storage. This reactive reference is dynamically linked to the corresponding value in local storage, ensuring automatic updates whenever the value changes.
 <br />
-For retrieving data, pass true to the second param of the `get( )` function.
+For data retrieval, simply pass **true** as the second parameter to the `get()` function.
 
 ```js
 const reactiveData = fallon.get("cart", true);
@@ -91,15 +97,14 @@ const reactiveData = fallon.get("cart", true);
 
 Now `reactiveData` will automatically update its value whenever the value of `cart` changes in the local storage.
 <br />
-<br/>
-For data storaging, use the `bind( )` function.
+For data storage, use the `bind( )` function.
 
 ```js
 const reactiveVariable = ref("something");
 fallon.bind("cart", reactiveVariable);
 ```
 
-Now the variable `reactiveData` is linked to the value of the key `cart` in the local storage. So whenever the variable data changes, the local storage value will do as well.
+By binding `reactiveVariable` to the key **cart** in local storage, any changes to the variable will automatically reflect in the corresponding local storage value, ensuring seamless synchronization between Vue components and local storage.
 
 ## API
 
