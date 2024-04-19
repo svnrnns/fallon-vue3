@@ -168,7 +168,6 @@ Removes a key and its value from the local storage.
 ### exists
 
 Checks whether a key exists in the local storage or not.
-Removes a key and its value from the local storage.
 | Param | Type | Nullable | Desc |
 |-----------|--------|----------|----------------------------|
 | key | any | &cross; | The key |
